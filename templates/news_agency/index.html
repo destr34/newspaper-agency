@@ -1,20 +1,14 @@
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>News agency</title>
-  <title>Newspaper agency</title>
-</head>
-<body>
-<h1>Newspaper Agency Home Page</h1>
-<h4>Welcome to Newspaper agency</h4>
-<hr>
-<h3>Newspaper agency content</h3>
-<ul>
-  <li>Number of Topic: {{ count_topic }}</li>
-  <li>Number of Redactors: {{ count_redactor }}</li>
-  <li>Number of Newspaper: {{ count_newspaper }}</li>
-</ul>
+{% extends "base.html" %}
 
-</body>
-</html>
-</html>
+{% block content %}
+<h1>Newspaper Agency Home Page</h1>
+<p>Welcome to Newspaper agency</p>
+<hr>
+<h4>Newspaper agency content</h4>
+  <ul>
+    <li>Number of Topic: {{ count_topic }}</li>
+    <li>Number of Redactors: {{ count_redactor }}</li>
+    <li>Number of Newspaper: {{ count_newspaper }}</li>
+  </ul>
+
+{% endblock %}
