@@ -23,3 +23,8 @@ class TopicListView(generic.ListView):
     context_object_name = "topic_list"
     template_name = "news_agency/topic_list.html"
     paginate_by = 5
+
+
+class RedactorListView(generic.ListView):
+    model = Redactor
+    paginate_by = 5
