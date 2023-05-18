@@ -2,7 +2,8 @@ body {
     margin-top: 20px;
 }
 
-.link-to-page {
-    float: right;
-    margin: 0 2px 0 2px;
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
 }
+
