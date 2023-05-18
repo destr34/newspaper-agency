@@ -14,4 +14,4 @@ def index(request):
         "count_newspaper": count_newspaper
     }
 
-    return render(request, "news-agency/index.html", context=context)
+    return render(request, "news_agency/index.html", context=context)
