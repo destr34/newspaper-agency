@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views import generic
 
 from news_agency.models import Topic, Redactor, Newspaper
 
@@ -15,3 +16,10 @@ def index(request):
     }
 
     return render(request, "news_agency/index.html", context=context)
+
+
+class TopicListView(generic.ListView):
+    model = Topic
+    context_object_name = "topic_list"
+    template_name = "news_agency/topic_list.html"
+    paginate_by = 5
