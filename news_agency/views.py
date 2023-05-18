@@ -29,3 +29,8 @@ class RedactorListView(generic.ListView):
     model = Redactor
     paginate_by = 5
     template_name = "news_agency/redactor_list.html"
+
+
+class NewspaperListView(generic.ListView):
+    model = Newspaper
+    paginate_by = 5
