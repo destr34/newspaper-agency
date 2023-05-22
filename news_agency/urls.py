@@ -6,6 +6,7 @@ from news_agency.views import (
     RedactorListView,
     NewspaperListView,
     RedactorDetailView,
+    NewspaperDetailView,
 )
 
 urlpatterns = [
@@ -17,7 +18,12 @@ urlpatterns = [
         "redactors/<int:pk>/",
         RedactorDetailView.as_view(),
         name='redactor-detail'
-    )
+    ),
+    path(
+        "newspapers/<int:pk>/",
+        NewspaperDetailView.as_view(),
+        name='newspaper-detail'
+    ),
 ]
 
 app_name = "newsagency"
