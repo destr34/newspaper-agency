@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 class="text-capitalize">redactor detail page</h2>
+    <hr>
+    <p>Here you can see more detailed information about the redactor</p>
+    <dl class="dl-horizontal">
+
+
+      <dt>Username:</dt>
+      <dd> {{ redactor.username }}</dd>
+
+      <dt>First Name:</dt>
+      <dd> {{ redactor.first_name }}</dd>
+
+      <dt>Last Name:</dt>
+      <dd> {{ redactor.last_name }}</dd>
+
+      <dt>Email:</dt>
+      {% if redactor.email %}
+      <dd> {{ redactor.email }}</dd>
+      {% else %}
+      <dd class="text-danger"> No information about <strong>email</strong></dd>
+      {% endif %}
+
+      <dt>Years of experience:</dt>
+      {% if redactor.years_of_experience %}
+      <dd> {{ redactor.years_of_experience }}</dd>
+      {% else %}
+      <dd class="text-danger"> No information about <strong>years of experience</strong></dd>
+      {% endif %}
+    </dl>
+
+{% endblock %}
