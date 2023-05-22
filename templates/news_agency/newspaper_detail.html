@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <h2>Newspaper detail page</h2>
+    <hr>
+    <p>Detailed information about the newspaper</p>
+    <dl class="dl-horizontal">
+
+      <dt>Title:</dt>
+      <dd> {{ newspaper.title }}</dd>
+
+      <dt>Published date:</dt>
+      <dd> {{ newspaper.published_date }}</dd>
+
+      <dt>Publishers:</dt>
+      {% for publisher in newspaper.publishers.all %}
+        <dd> {{ publisher.first_name}} {{ publisher.last_name }} ({{ publisher.username }})</dd>
+      {% empty %}
+        <dd class="text-danger"> No information about publishers</dd>
+      {% endfor %}
+
+      <dt>Topic:</dt>
+        {% if newspaper.topic %}
+          <dd> {{ newspaper.topic }}</dd>
+        {% else %}
+          <dd class="text-danger"> No information about topic</dd>
+        {% endif %}
+      </dl>
+    <hr>
+
+    <h4><strong>Content</strong></h4>
+      <p>{{ newspaper.content }}</p>
+  </div>
+{% endblock %}
