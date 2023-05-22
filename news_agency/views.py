@@ -31,6 +31,10 @@ class RedactorListView(generic.ListView):
     template_name = "news_agency/redactor_list.html"
 
 
+class RedactorDetailView():
+    pass
+
+
 class NewspaperListView(generic.ListView):
     model = Newspaper
     paginate_by = 5
