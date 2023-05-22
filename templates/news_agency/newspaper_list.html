@@ -1,23 +1,14 @@
 {% extends "base.html" %}
-
-
 {% block content %}
-  <h1 class="text-center">
-
-    <strong>Welcome!</strong></h1>
-  <table class="table">
-  <thead class="thead-blue">
-    <tr>
-      <th scope="col">Redactors</th>
-      <th scope="col">Title</th>
-      <th scope="col">Content</th>
-      <th scope="col">Commentaries</th>
-      <th scope="col">Date</th>
-    </tr>
-  </thead>
-  <tbody>
-
-
-  </tbody>
-  </table>
+  <h1>Newspapers List</h1>
+  <br>
+  {% for newspaper in newspaper_list %}
+    <ul>
+      <li><a href="{% url 'news-agency:newspaper-detail' pk=newspaper.id %}">{{ newspaper.title }}
+      </a> add at ({{ newspaper.published_date }})</li>
+      <hr>
+    </ul>
+  {% empty %}
+    <p>There are no newspapers now</p>
+  {% endfor %}
 {% endblock %}
