@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views import generic
 
@@ -31,8 +32,8 @@ class RedactorListView(generic.ListView):
     template_name = "news_agency/redactor_list.html"
 
 
-class RedactorDetailView():
-    pass
+class RedactorDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Redactor
 
 
 class NewspaperListView(generic.ListView):
