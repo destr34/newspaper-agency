@@ -1,4 +1,11 @@
 <ul class="sidebar-nav list-group">
+  {% if user.is_authenticated %}
+    <li>Redactor: {{user.username}} ({{user.first_name}})</li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+  {% else %}
+    <li><a href="{% url 'login' %}">Login</a></li>
+  {% endif %}
+    <br>
   <li class="list-group-item"><a href="{% url 'news-agency:index' %}">Home</a></li>
   <li class="list-group-item"><a href="{% url 'news-agency:topic-list' %}">Topic</a></li>
   <li class="list-group-item"><a href="{% url 'news-agency:redactor-list' %}">Redactor</a></li>
