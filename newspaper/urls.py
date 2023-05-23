@@ -22,4 +22,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("news-agency/", include("news_agency.urls", namespace="news-agency")),
+    path("registration/", include("django.contrib.auth.urls"))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
