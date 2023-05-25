@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
 
 from news_agency.models import Topic, Redactor, Newspaper
@@ -28,6 +29,12 @@ class TopicListView(generic.ListView):
     context_object_name = "topic_list"
     template_name = "news_agency/topic_list.html"
     paginate_by = 5
+
+
+class TopicCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Topic
+    fields = "__all__"
+    success_url = reverse_lazy("news-agency:topic-list")
 
 
 class RedactorListView(generic.ListView):
