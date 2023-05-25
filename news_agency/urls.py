@@ -35,7 +35,7 @@ urlpatterns = [
         name="newspaper-create"
     ),
     path(
-        "topics/delete/",
+        "topics/<int:pk>/delete/",
         TopicDeleteView.as_view(),
         name="topic-delete"
     ),
