@@ -42,6 +42,12 @@ class TopicDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("news-agency:topic-list")
 
 
+class TopicUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Topic
+    fields = "__all__"
+    success_url = reverse_lazy("newspaper:topic-list")
+
+
 class RedactorListView(generic.ListView):
     model = Redactor
     paginate_by = 5
