@@ -6,7 +6,11 @@ from news_agency.views import (
     RedactorListView,
     NewspaperListView,
     RedactorDetailView,
-    NewspaperDetailView, TopicCreateView, NewspaperCreateView, TopicDeleteView,
+    NewspaperDetailView,
+    TopicCreateView,
+    NewspaperCreateView,
+    TopicDeleteView,
+    TopicUpdateView,
 )
 
 urlpatterns = [
@@ -39,6 +43,11 @@ urlpatterns = [
         TopicDeleteView.as_view(),
         name="topic-delete"
     ),
+    path(
+        "topics/<int:pk>/update/",
+        TopicUpdateView.as_view(),
+        name="topic-update"
+    )
 ]
 
 app_name = "newsagency"
