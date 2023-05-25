@@ -6,7 +6,7 @@ from news_agency.views import (
     RedactorListView,
     NewspaperListView,
     RedactorDetailView,
-    NewspaperDetailView,
+    NewspaperDetailView, TopicCreateView,
 )
 
 urlpatterns = [
@@ -23,6 +23,11 @@ urlpatterns = [
         "newspapers/<int:pk>/",
         NewspaperDetailView.as_view(),
         name='newspaper-detail'
+    ),
+    path(
+        "topics/create/",
+        TopicCreateView.as_view(),
+        name="topic-create"
     ),
 ]
 
