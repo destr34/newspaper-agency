@@ -3,13 +3,30 @@
 {% block content %}
   <h1> Topics List</h1>
   <br>
-  {% for topic in topic_list %}
-  <ul>
-    <li><a href="#">{{ topic.topic }}</a> </li>
-    <hr>
-  </ul>
-  {% empty %}
-    <p>There are no topic</p>
-  {% endfor %}
+  {% if topic_list %}
+    <table class="table">
+      <tr>
+        <th>Id</th>
+        <th>Topic</th>
+        <th>Update</th>
+        <th>Create</th>
+      </tr>
+
+    {% for topic in topic_list %}
+    <tr>
+      <td>{{ topic.id }}</td>
+      <td>{{ topic.topic }}</td>
+      <td>
+        <a href="#">Update</a>
+      </td>
+      <td>
+        <a href="{% url 'news-agency:topic-delete' pk=topic.id %}">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+    </table>
+  {% else %}
+    <p>There are no topic, you can create first topic</p>
+  {% endif %}
   <p><a href="{% url 'news-agency:topic-create' %}">Create new Topic</a></p>
 {% endblock %}
