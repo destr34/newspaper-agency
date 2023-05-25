@@ -11,4 +11,5 @@
   {% empty %}
     <p>There are no topic</p>
   {% endfor %}
+  <p><a href="{% url 'news-agency:topic-create' %}">Create new Topic</a></p>
 {% endblock %}
