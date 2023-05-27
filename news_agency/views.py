@@ -40,7 +40,7 @@ class TopicCreateView(LoginRequiredMixin, generic.CreateView):
 class TopicDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Topic
     success_url = reverse_lazy("news-agency:topic-list")
-    queryset = Topic.objects.select_related()
+
 
 class TopicUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Topic
@@ -56,6 +56,12 @@ class RedactorListView(generic.ListView):
 
 class RedactorDetailView(LoginRequiredMixin, generic.DetailView):
     model = Redactor
+
+
+class RedactorDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Redactor
+    template_name = "news_agency/redactor_delete.html"
+    success_url = reverse_lazy("news-agency:redactor-list")
 
 
 class NewspaperListView(generic.ListView):
