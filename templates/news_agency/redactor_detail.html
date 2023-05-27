@@ -30,5 +30,6 @@
       <dd class="text-danger"> No information about <strong>years of experience</strong></dd>
       {% endif %}
     </dl>
+  <a class="btn btn-danger" href="{% url 'news-agency:redactor-delete' pk=redactor.id %}">Delete</a>
 
 {% endblock %}
