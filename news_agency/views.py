@@ -40,12 +40,12 @@ class TopicCreateView(LoginRequiredMixin, generic.CreateView):
 class TopicDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Topic
     success_url = reverse_lazy("news-agency:topic-list")
-
+    queryset = Topic.objects.select_related()
 
 class TopicUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Topic
     fields = "__all__"
-    success_url = reverse_lazy("newspaper:topic-list")
+    success_url = reverse_lazy("news-agency:topic-list")
 
 
 class RedactorListView(generic.ListView):
@@ -82,5 +82,5 @@ class NewspaperUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class NewspaperDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Newspaper
-    success_url = reverse_lazy("newspaper:newspaper-list")
-    queryset = Newspaper.objects.all()
+    success_url = reverse_lazy("news-agency:newspaper-list")
+    queryset = Newspaper.objects.select_related("topic")
