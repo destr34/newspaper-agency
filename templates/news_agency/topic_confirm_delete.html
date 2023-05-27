@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Delete topic</h2>
+  <p>Are you sure you want to delete: <strong>{{ topic }}</strong> topic</p>
+  <form action="" method="post">
+    {% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="Yes, Delete">
+    <a style="float: bottom" class="btn btn-primary" href="{% url 'news-agency:topic-list' %}">Cancel</a>
+  </form>
+{% endblock %}
+
