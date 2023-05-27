@@ -12,7 +12,7 @@ from news_agency.views import (
     TopicDeleteView,
     TopicUpdateView,
     NewspaperDeleteView,
-    RedactorDeleteView,
+    RedactorDeleteView, RedactorUpdateView,
 )
 
 urlpatterns = [
@@ -60,6 +60,11 @@ urlpatterns = [
         RedactorDeleteView.as_view(),
         name="redactor-delete"
     ),
+    path(
+        "redactors/<int:pk>/update",
+        RedactorUpdateView.as_view(),
+        name="redactor-update"
+    )
 ]
 
 app_name = "news_agency"
