@@ -21,6 +21,7 @@
         <td>{{ redactor.first_name }}</td>
         <td>{{ redactor.last_name }}</td>
         <td>{{ redactor.years_of_experience }}</td>
+        <td><a class="text-info" href="{% url 'news-agency:redactor-detail' pk=redactor.id %}">DETAIL</a></td>
       </tr>
     {% endfor %}
 
