@@ -59,6 +59,12 @@ class RedactorDetailView(LoginRequiredMixin, generic.DetailView):
     model = Redactor
 
 
+class RedactorCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Redactor
+    form_class = CreateRedactorForm
+    success_url = reverse_lazy("news-agency:redactor-list")
+
+
 class RedactorDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Redactor
     template_name = "news_agency/redactor_confirm_delete.html"
@@ -68,8 +74,7 @@ class RedactorDeleteView(LoginRequiredMixin, generic.DeleteView):
 class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Redactor
     form_class = CreateRedactorForm
-    success_url = reverse_lazy("news-agency:redactor-detail")
-    template_name = "news_agency/redactor_form.html"
+    success_url = reverse_lazy("news-agency:redactor-list")
 
 
 class NewspaperListView(generic.ListView):
