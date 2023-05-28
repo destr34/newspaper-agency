@@ -11,5 +11,5 @@
   {% empty %}
     <p>There are no newspapers now</p>
   {% endfor %}
-  <p><a href="{% url 'news-agency:newspaper-create' %}">Create new newspaper</a></p>
+  <p><a class="btn btn-secondary" href="{% url 'news-agency:newspaper-create' %}">Create new newspaper</a></p>
 {% endblock %}
