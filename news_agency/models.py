@@ -30,11 +30,11 @@ class Newspaper(models.Model):
     content = models.TextField()
     published_date = models.DateTimeField()
     topic = models.ForeignKey(
-        Topic, on_delete=models.CASCADE, related_name="newspaper"
+        Topic, on_delete=models.CASCADE
     )
     publishers = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
-        related_name="newspaper"
+        related_name="newspapers"
     )
 
     class Meta:
