@@ -36,7 +36,7 @@ urlpatterns = [
         name="topic-create"
     ),
     path(
-        "newspaper/create/",
+        "newspapers/create/",
         NewspaperCreateView.as_view(),
         name="newspaper-create"
     ),
