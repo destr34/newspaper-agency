@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
@@ -7,6 +8,7 @@ from news_agency.forms import CreateRedactorForm
 from news_agency.models import Topic, Redactor, Newspaper
 
 
+@login_required
 def index(request):
     count_topic = Topic.objects.count()
     count_redactor = Redactor.objects.count()
@@ -25,7 +27,7 @@ def index(request):
     return render(request, "news_agency/index.html", context=context)
 
 
-class TopicListView(generic.ListView):
+class TopicListView(LoginRequiredMixin, generic.ListView):
     model = Topic
     context_object_name = "topic_list"
     template_name = "news_agency/topic_list.html"
@@ -36,6 +38,7 @@ class TopicCreateView(LoginRequiredMixin, generic.CreateView):
     model = Topic
     fields = "__all__"
     success_url = reverse_lazy("news-agency:topic-list")
+    template_name = "news_agency/topic_form.html"
 
 
 class TopicDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -47,12 +50,14 @@ class TopicUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Topic
     fields = "__all__"
     success_url = reverse_lazy("news-agency:topic-list")
+    template_name = "news_agency/topic_form.html"
 
 
-class RedactorListView(generic.ListView):
+class RedactorListView(LoginRequiredMixin, generic.ListView):
     model = Redactor
     paginate_by = 5
     template_name = "news_agency/redactor_list.html"
+    queryset = Redactor.objects.prefetch_related("newspapers")
 
 
 class RedactorDetailView(LoginRequiredMixin, generic.DetailView):
@@ -83,13 +88,13 @@ class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
         )
 
 
-class NewspaperListView(generic.ListView):
+class NewspaperListView(LoginRequiredMixin, generic.ListView):
     model = Newspaper
     paginate_by = 5
     queryset = Newspaper.objects.select_related("topic")
 
 
-class NewspaperDetailView(generic.DetailView):
+class NewspaperDetailView(LoginRequiredMixin, generic.DetailView):
     model = Newspaper
 
 

@@ -13,6 +13,7 @@ from news_agency.views import (
     TopicUpdateView,
     NewspaperDeleteView,
     RedactorDeleteView, RedactorUpdateView, RedactorCreateView,
+    NewspaperUpdateView,
 )
 
 urlpatterns = [
@@ -54,6 +55,11 @@ urlpatterns = [
         "newspapers/<int:pk>/delete/",
         NewspaperDeleteView.as_view(),
         name="newspaper-delete"
+    ),
+    path(
+        "newspapers/<int:pk>/update/",
+        NewspaperUpdateView.as_view(),
+        name="newspaper-update"
     ),
     path(
         "redactors/create/",
