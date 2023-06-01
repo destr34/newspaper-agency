@@ -32,3 +32,13 @@ class CreateNewspaperForm(forms.ModelForm):
             "content",
         )
 
+
+class TopicSearchForm(forms.Form):
+    name_topic = forms.CharField(
+        max_length=50,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={"placeholder": "Search by topic..."}
+        )
+    )
