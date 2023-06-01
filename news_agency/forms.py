@@ -1,10 +1,12 @@
 from django import forms
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
 
-from news_agency.models import Redactor
+from news_agency.models import Redactor, Newspaper
 
 
-class CreateRedactorForm(forms.ModelForm):
-    class Meta:
+class CreateRedactorForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
         model = Redactor
         fields = (
             "username",
@@ -13,3 +15,20 @@ class CreateRedactorForm(forms.ModelForm):
             "email",
             "years_of_experience",
         )
+
+
+class CreateNewspaperForm(forms.ModelForm):
+    publishers = forms.ModelMultipleChoiceField(
+        queryset=get_user_model().objects.all(),
+        widget=forms.CheckboxSelectMultiple()
+    )
+
+    class Meta:
+        model = Newspaper
+        fields = (
+            "title",
+            "topic",
+            "publishers",
+            "content",
+        )
+
