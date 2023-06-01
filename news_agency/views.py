@@ -1,11 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import QuerySet
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 
-from news_agency.forms import CreateRedactorForm, CreateNewspaperForm, \
-    TopicSearchForm
+from news_agency.forms import (
+    CreateRedactorForm,
+    CreateNewspaperForm,
+    TopicSearchForm, RedactorSearchForm
+)
 from news_agency.models import Topic, Redactor, Newspaper
 
 
@@ -34,7 +38,7 @@ class TopicListView(LoginRequiredMixin, generic.ListView):
     template_name = "news_agency/topic_list.html"
     paginate_by = 5
 
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, *, object_list=None, **kwargs) -> dict:
         context = super(TopicListView, self).get_context_data(**kwargs)
 
         name_topic = self.request.GET.get("name_topic", "")
@@ -45,7 +49,7 @@ class TopicListView(LoginRequiredMixin, generic.ListView):
 
         return context
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         form = TopicSearchForm(self.request.GET)
         queryset = super(TopicListView, self).get_queryset()
 
@@ -79,6 +83,17 @@ class RedactorListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
     template_name = "news_agency/redactor_list.html"
     queryset = Redactor.objects.prefetch_related("newspapers")
+
+    def get_context_data(self, *, object_list=None, **kwargs) -> dict:
+        context = super(RedactorListView, self).get_context_data(**kwargs)
+
+        user_name = self.request.GET.get("user_name", "")
+
+        context["search_form"] = RedactorSearchForm(
+            initial={"user_name": user_name}
+        )
+
+        return context
 
 
 class RedactorDetailView(LoginRequiredMixin, generic.DetailView):
