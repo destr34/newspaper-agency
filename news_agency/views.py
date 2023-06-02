@@ -8,7 +8,7 @@ from django.views import generic
 from news_agency.forms import (
     CreateRedactorForm,
     CreateNewspaperForm,
-    TopicSearchForm, RedactorSearchForm
+    TopicSearchForm, RedactorSearchForm, NewspaperSearchForm
 )
 from news_agency.models import Topic, Redactor, Newspaper
 
@@ -138,18 +138,28 @@ class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
 class NewspaperListView(LoginRequiredMixin, generic.ListView):
     model = Newspaper
     paginate_by = 5
-    queryset = Newspaper.objects.select_related("topic")
 
     def get_context_data(self, *, object_list=None, **kwargs) -> dict:
         context = super(NewspaperListView, self).get_context_data(**kwargs)
 
-        name_title = self.request.GET.get("name_title", "")
+        title = self.request.GET.get("title", "")
 
-        context["search_form"] = RedactorSearchForm(
-            initial={"name_title": name_title}
+        context["search_form"] = NewspaperSearchForm(
+            initial={"title": title}
         )
 
         return context
+
+    def get_queryset(self) -> QuerySet:
+        queryset = Newspaper.objects.select_related("topic")
+
+        form = NewspaperSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return queryset.filter(
+                title__icontains=form.cleaned_data["title"]
+            )
+        return queryset
 
 
 class NewspaperDetailView(LoginRequiredMixin, generic.DetailView):
