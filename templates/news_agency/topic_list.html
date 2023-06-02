@@ -1,7 +1,11 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h1> Topics List</h1>
+  {% block search_form %}
+    {% include "includes/search_form.html" %}
+  {% endblock %}
   <br>
   {% if topic_list %}
     <table class="table">
