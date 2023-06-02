@@ -82,7 +82,7 @@ class RedactorListView(LoginRequiredMixin, generic.ListView):
     model = Redactor
     paginate_by = 5
     template_name = "news_agency/redactor_list.html"
-    queryset = Redactor.objects.prefetch_related("newspapers")
+
 
     def get_context_data(self, *, object_list=None, **kwargs) -> dict:
         context = super(RedactorListView, self).get_context_data(**kwargs)
@@ -94,6 +94,17 @@ class RedactorListView(LoginRequiredMixin, generic.ListView):
         )
 
         return context
+
+    def get_queryset(self) -> QuerySet:
+        queryset = Redactor.objects.prefetch_related("newspapers")
+
+        form = RedactorSearchForm(self.request.GET)
+
+        if form.is_valid():
+            return queryset.filter(
+                username__icontains=form.cleaned_data["user_name"]
+            )
+        return queryset
 
 
 class RedactorDetailView(LoginRequiredMixin, generic.DetailView):
