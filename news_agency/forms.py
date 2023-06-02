@@ -45,11 +45,22 @@ class TopicSearchForm(forms.Form):
 
 
 class RedactorSearchForm(forms.Form):
-    name_user = forms.CharField(
+    user_name = forms.CharField(
         max_length=50,
         required=False,
         label="",
         widget=forms.TextInput(
             attrs={"placeholder": "Search by username..."}
+        )
+    )
+
+
+class NewspaperSearchForm(forms.Form):
+    title = forms.CharField(
+        max_length=50,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={"placeholder": "Search by title..."}
         )
     )
