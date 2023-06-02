@@ -140,6 +140,17 @@ class NewspaperListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
     queryset = Newspaper.objects.select_related("topic")
 
+    def get_context_data(self, *, object_list=None, **kwargs) -> dict:
+        context = super(NewspaperListView, self).get_context_data(**kwargs)
+
+        name_title = self.request.GET.get("name_title", "")
+
+        context["search_form"] = RedactorSearchForm(
+            initial={"name_title": name_title}
+        )
+
+        return context
+
 
 class NewspaperDetailView(LoginRequiredMixin, generic.DetailView):
     model = Newspaper
