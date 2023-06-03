@@ -8,7 +8,9 @@ from django.views import generic
 from news_agency.forms import (
     CreateRedactorForm,
     CreateNewspaperForm,
-    TopicSearchForm, RedactorSearchForm, NewspaperSearchForm
+    TopicSearchForm,
+    RedactorSearchForm,
+    NewspaperSearchForm,
 )
 from news_agency.models import Topic, Redactor, Newspaper
 
@@ -43,9 +45,9 @@ class TopicListView(LoginRequiredMixin, generic.ListView):
 
         name_topic = self.request.GET.get("name_topic", "")
 
-        context["search_form"] = TopicSearchForm(initial={
-            "name_topic": name_topic
-        })
+        context["search_form"] = TopicSearchForm(
+            initial={"name_topic": name_topic}
+        )
 
         return context
 
@@ -83,14 +85,15 @@ class RedactorListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
     template_name = "news_agency/redactor_list.html"
 
-
     def get_context_data(self, *, object_list=None, **kwargs) -> dict:
         context = super(RedactorListView, self).get_context_data(**kwargs)
 
         user_name = self.request.GET.get("user_name", "")
 
         context["search_form"] = RedactorSearchForm(
-            initial={"user_name": user_name}
+            initial={
+                "user_name": user_name
+            }
         )
 
         return context
@@ -130,8 +133,7 @@ class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_success_url(self):
         return reverse(
-            "news-agency:redactor-detail",
-            kwargs={"pk": self.object.pk}
+            "news-agency:redactor-detail", kwargs={"pk": self.object.pk}
         )
 
 
@@ -144,9 +146,7 @@ class NewspaperListView(LoginRequiredMixin, generic.ListView):
 
         title = self.request.GET.get("title", "")
 
-        context["search_form"] = NewspaperSearchForm(
-            initial={"title": title}
-        )
+        context["search_form"] = NewspaperSearchForm(initial={"title": title})
 
         return context
 
@@ -156,9 +156,7 @@ class NewspaperListView(LoginRequiredMixin, generic.ListView):
         form = NewspaperSearchForm(self.request.GET)
 
         if form.is_valid():
-            return queryset.filter(
-                title__icontains=form.cleaned_data["title"]
-            )
+            return queryset.filter(title__icontains=form.cleaned_data["title"])
         return queryset
 
 

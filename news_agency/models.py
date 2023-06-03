@@ -1,8 +1,7 @@
-from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-
+from newspaper import settings
 
 
 class Topic(models.Model):
@@ -30,11 +29,11 @@ class Newspaper(models.Model):
     content = models.TextField()
     published_date = models.DateTimeField()
     topic = models.ForeignKey(
-        Topic, on_delete=models.CASCADE
+        Topic,
+        on_delete=models.CASCADE,
     )
     publishers = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,
-        related_name="newspapers"
+        settings.AUTH_USER_MODEL, related_name="newspapers"
     )
 
     class Meta:
@@ -42,6 +41,5 @@ class Newspaper(models.Model):
 
     def __str__(self) -> str:
         return (
-            f"{self.publishers} published "
-            f"{self.title} date {self.published_date}"
+            f"{self.publishers} published " f"{self.title} date {self.published_date}"
         )

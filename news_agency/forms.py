@@ -19,8 +19,7 @@ class CreateRedactorForm(UserCreationForm):
 
 class CreateNewspaperForm(forms.ModelForm):
     publishers = forms.ModelMultipleChoiceField(
-        queryset=get_user_model().objects.all(),
-        widget=forms.CheckboxSelectMultiple()
+        queryset=get_user_model().objects.all(), widget=forms.CheckboxSelectMultiple()
     )
 
     class Meta:
@@ -38,9 +37,7 @@ class TopicSearchForm(forms.Form):
         max_length=50,
         required=False,
         label="",
-        widget=forms.TextInput(
-            attrs={"placeholder": "Search by topic..."}
-        )
+        widget=forms.TextInput(attrs={"placeholder": "Search by topic..."}),
     )
 
 
@@ -49,9 +46,7 @@ class RedactorSearchForm(forms.Form):
         max_length=50,
         required=False,
         label="",
-        widget=forms.TextInput(
-            attrs={"placeholder": "Search by username..."}
-        )
+        widget=forms.TextInput(attrs={"placeholder": "Search by username..."}),
     )
 
 
@@ -60,7 +55,5 @@ class NewspaperSearchForm(forms.Form):
         max_length=50,
         required=False,
         label="",
-        widget=forms.TextInput(
-            attrs={"placeholder": "Search by title..."}
-        )
+        widget=forms.TextInput(attrs={"placeholder": "Search by title..."}),
     )

@@ -6,20 +6,23 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('news_agency', '0002_alter_redactor_years_of_experience'),
+        ("news_agency", "0002_alter_redactor_years_of_experience"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='newspaper',
-            name='publishers',
-            field=models.ManyToManyField(related_name='newspapers', to=settings.AUTH_USER_MODEL),
+            model_name="newspaper",
+            name="publishers",
+            field=models.ManyToManyField(
+                related_name="newspapers", to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AlterField(
-            model_name='newspaper',
-            name='topic',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='news_agency.topic'),
+            model_name="newspaper",
+            name="topic",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="news_agency.topic"
+            ),
         ),
     ]
