@@ -1,8 +1,8 @@
 from django.contrib.auth import get_user_model
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.urls import reverse
 
-from news_agency.models import Topic
+from news_agency.models import Topic, Newspaper
 
 TOPIC_URL = reverse("news_agency:topic-list")
 
@@ -34,3 +34,30 @@ class PrivateTopicTests(TestCase):
             list(topics)
         )
         self.assertTemplateUsed(response, "news_agency/topic_list.html")
+
+
+class PrivateNewspaperTest(TestCase):
+    def setUp(self) -> None:
+        self.user = get_user_model().objects.create_user(
+            "test_name",
+            "test_password",
+        )
+        self.client.force_login(self.user)
+
+    def test_retrieve_newspaper(self):
+        topic = Topic.objects.create(topic="Test_topic")
+        Newspaper.objects.create(
+            topic=topic,
+            title="test_title",
+            content="Loren ipsum",
+        )
+
+        newspaper = Newspaper.objects.all()
+        response = self.client.get(
+            reverse("news_agency:newspaper-list")
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            list(response.context["newspaper_list"]),
+            list(newspaper)
+        )
