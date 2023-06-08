@@ -39,7 +39,7 @@ class PrivateTopicTests(TestCase):
         self.assertTemplateUsed(response, "news_agency/topic_list.html")
 
 
-class PrivateNewspaperTest(TestCase):
+class PrivateNewspaperTests(TestCase):
     def setUp(self) -> None:
         self.user = get_user_model().objects.create_user(
             "test_name",
@@ -65,14 +65,14 @@ class PrivateNewspaperTest(TestCase):
         )
 
 
-class PublicRedactorTest(TestCase):
+class PublicRedactorTests(TestCase):
         def test_login_required(self) -> None:
             res = self.client.get(REDACTOR_URL)
 
             self.assertNotEqual(res.status_code, 200)
 
 
-class PrivateRedactorTest(TestCase):
+class PrivateRedactorTests(TestCase):
     def setUp(self) -> None:
         self.user = get_user_model().objects.create_user(
             "Adam_test",
@@ -93,3 +93,19 @@ class PrivateRedactorTest(TestCase):
             list(response.context["redactor_list"]),
             list(redactor)
         )
+
+    def test_create_redactor(self):
+        form_data = {
+            "username": "new_user",
+            "password1": "test1233",
+            "password2": "test1233",
+            "first_name": "Jakob",
+            "last_name": "Smith",
+            "years_of_experience": 5
+        }
+        self.client.post(reverse("news_agency:redactor-create"), data=form_data)
+        new_user = get_user_model().objects.get(username=form_data["username"])
+
+        self.assertEqual(new_user.first_name, form_data["first_name"])
+        self.assertEqual(new_user.last_name, form_data["last_name"])
+        self.assertEqual(new_user.years_of_experience, form_data["years_of_experience"])\
